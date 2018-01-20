@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <meta charset="UTF-8" />
+	<title>The Rock, Paper and Scissors' Game</title>
+	</head>
+	<body>
+
+		<h1 align="center">The Rock, Paper and Scissors' Game<br>
+		</h1>
+
+		<h3 align="center">
+			This is a console game.<br>So, before you start the game, press ctrl+shft+i or f12 and select console to see the messages.
+		</h3>
+    <div align="center"><button onclick="game()">Start GAME</button></div>
+
+		<script>
+			function computerPlay() {
+				let random = Math.floor(Math.random() * 3) + 1;
+				let computerMove;
+				switch (random) {
+					case 1:
+						computerMove = "ROCK";
+						break;
+					case 2:
+						computerMove = "PAPER";
+						break;
+					case 3:
+						computerMove = "SCISSORS";
+						break;
+				}
+				return computerMove;
+			}
+			function playRound(playerUnformatted, computerMove) {
+				let playerSelection = playerUnformatted.toUpperCase();
+				if (playerUnformatted != null) {
+					console.log(playerSelection.toUpperCase() + " vs " + computerMove);
+					let result = "";
+					let playResult;
+					if (
+						(playerSelection === "ROCK" && computerMove === "SCISSORS") ||
+						(playerSelection === "PAPER" && computerMove === "ROCK") ||
+						(playerSelection === "SCISSORS" && computerMove === "PAPER")
+					) {
+						result = "You win! " + playerSelection + " beats " + computerMove + "!";
+						playResult = 1;
+					} else if (playerSelection === computerMove) {
+						result = "It's a draw!";
+						playResult = 2;
+					} else {
+						result =
+							"You lose! " + computerMove + " beats " + playerSelection + "!";
+						playResult = 3;
+					}
+					console.log(result);
+					return playResult;
+				} else {
+					console.log("Please, type your move correctly.");
+				}
+			}
+			function game() {
+				let playerScore = 0;
+				let computerScore = 0;
+				for (let i = 0; i < 5; i++) {
+					console.log("\nROUND " + (i + 1) + "\nYour move vs Computer's move:" + "\n");
+					let playerSelection = prompt("Type Rock, Paper or Scissors");
+					if (
+						playerSelection.toUpperCase() === "ROCK" ||
+						playerSelection.toUpperCase() === "SCISSORS" ||
+						playerSelection.toUpperCase() === "PAPER"
+					) {
+						let playResult = playRound(playerSelection, computerPlay());
+						switch (playResult) {
+							case 1:
+								playerScore += 1;
+								break;
+							case 2:
+								break;
+							case 3:
+								computerScore += 1;
+								break;
+						}
+					} else {
+              console.log("Wrong move: choose between Rock, Paper or Scissors.");
+              i-=1;
+            }
+				}
+				console.log("\n\nThe final score is: You (" + playerScore + ") vs (" +	computerScore + ") Computer.");
+				if (playerScore > computerScore) {
+					console.log("You win!");
+				} else if (computerScore > playerScore) {
+					console.log("You lose!");
+				} else console.log("Draw Game!");
+			}
+		</script>
+	</body>
+</html>
